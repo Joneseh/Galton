@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Predict a Child's Height</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Predict a Child's Height">
+  <meta name="author" content="Emily Jones">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Predict a Child's Height</h1>
+    <h2>Based on data from the Galton dataset</h2>
+    <p>Emily Jones<br/>Coursera Developing Data Products Course Project</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Web Application to Predict a Child&#39;s Height based on their Parent&#39;s Height</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>The web app is found at <a href="http://mononajones.shinyapps.io/Galton/">http://mononajones.shinyapps.io/Galton/</a></p></li>
+<li><p>It uses the dataset GaltonFamilies in the HistData package. </p></li>
+</ul>
+
+<p>This dataset is based on the work done by Francis Galton in the 19th century</p>
+
+<p>The help from the HistData package states that data set lists the individual observations for 934 children in 205 families on which Galton (1886) based his cross-tabulation.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Functionality</h2>
+  </hgroup>
+  <article data-timings="">
+    <p style='font-size:smaller'>
+This application allows one to select the height for each parent. It uses a linear regression model to predict a child's height based on the these heights. It then returns predictions for the height of sons and daughters.
+The following is the code used by the application:
+</p>
+
+<p style='font-family:"Lucida Console"; font-size:small'>
+ fit<-lm(childHeight~mother+father+gender, data=GaltonFamilies)
+ <br/>
+ predict.lm(fit, data.frame(mother=m,father=f,gender=g), interval="prediction")
+</p>
+
+<p style='font-size:75%'>
+where m is the height of the mother in inches, f is the height of the father in inches and g is female for daughters and male for sons.
+</p>
+
+<p style='font-size:75%'>
+Given a mother who is 64 inches tall and a father who is 72 inches tall, this predicts a daughter's height as follows:
+</p>
+
+<pre><code>##     fit   lwr   upr
+## 1 65.13 60.88 69.39
+</code></pre>
+
+<p style='font-size:75%'>
+This predicts a son's height as follows: 
+</p>
+
+<pre><code>##     fit   lwr  upr
+## 1 70.35 66.09 74.6
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Example Output</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Screen Capture of the application</h3>
+
+<p><img src = 'GaltonResults.PNG' style='width:750 ;height: 350' ></img></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Source and References</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Source:</h3>
+
+<p>Galton's notebook, http://www.medicine.mcgill.ca/epidemiology/hanley/galton/notebook/, transcribed by Beverley Shipley in 2001.
+</p>
+
+<h3>References</h3>
+
+<p>References for the Galton dataset as provided by the DataHist package.</p>
+
+<p>Galton, F. (1886). Regression Towards Mediocrity in Hereditary Stature Journal of the Anthropological Institute, 15, 246-263
+</p>
+
+<p>
+Hanley, J. A. (2004). "Transmuting" Women into Men: Galton's Family Data on Human Stature. The American Statistician, 58, 237-243. See: 
+<br/> http://www.medicine.mcgill.ca/epidemiology/hanley/galton/ for source materials.
+</p>
+
+<p>
+Keen, K. J. (2010). Graphics for Statistics and Data Analysis with R, Boca Raton: CRC Press,
+<br/>http://www.unbc.ca/keen/graphics-for-statistics-and-data-analysis-with-r.
+</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Web Application to Predict a Child&#39;s Height based on their Parent&#39;s Height'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Functionality'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Example Output'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Source and References'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

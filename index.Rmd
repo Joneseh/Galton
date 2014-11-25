@@ -1,0 +1,96 @@
+---
+title       : Predict a Child's Height 
+subtitle    : Based on data from the Galton dataset
+author      : Emily Jones
+job         : Coursera Developing Data Products Course Project
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Web Application to Predict a Child's Height based on their Parent's Height
+
+* The web app is found at http://mononajones.shinyapps.io/Galton/
+
+* It uses the dataset GaltonFamilies in the HistData package. 
+
+This dataset is based on the work done by Francis Galton in the 19th century
+
+The help from the HistData package states that data set lists the individual observations for 934 children in 205 families on which Galton (1886) based his cross-tabulation.
+
+--- .class #id 
+
+## Functionality
+<p style='font-size:smaller'>
+This application allows one to select the height for each parent. It uses a linear regression model to predict a child's height based on the these heights. It then returns predictions for the height of sons and daughters.
+The following is the code used by the application:
+</p>
+<p style='font-family:"Lucida Console"; font-size:small'>
+ fit<-lm(childHeight~mother+father+gender, data=GaltonFamilies)
+ <br/>
+ predict.lm(fit, data.frame(mother=m,father=f,gender=g), interval="prediction")
+</p>
+<p style='font-size:75%'>
+where m is the height of the mother in inches, f is the height of the father in inches and g is female for daughters and male for sons.
+</p>
+```{r fit, echo=FALSE}
+    require("HistData")
+    # create the fit 
+    fit<- lm(childHeight~mother+father+gender, data=GaltonFamilies)
+    m=64
+    f=72
+    # predict for daughters
+    d<- predict.lm(fit, data.frame(mother=m,father=f,gender="female"), interval="prediction")
+    # predict for sons
+    s<-predict.lm(fit, data.frame(mother=m,father=f,gender="male"), interval="prediction")
+
+```
+<p style='font-size:75%'>
+Given a mother who is 64 inches tall and a father who is 72 inches tall, this predicts a daughter's height as follows:
+</p>
+```{r daughter, echo=FALSE}
+    m=64
+    f=72
+    # predict for daughters
+   predict.lm(fit, data.frame(mother=m,father=f,gender="female"), interval="prediction")
+```
+<p style='font-size:75%'>
+This predicts a son's height as follows: 
+</p>
+```{r son, echo=FALSE}
+    m=64
+    f=72
+    # predict for daughters
+   predict.lm(fit, data.frame(mother=m,father=f,gender="male"), interval="prediction")
+```
+
+--- .class #id 
+## Example Output
+### Screen Capture of the application
+
+
+  <img src = 'GaltonResults.PNG' style='width:750 ;height: 350' ></img>
+
+--- .class #id 
+
+## Source and References
+
+### Source:
+<p>Galton's notebook, http://www.medicine.mcgill.ca/epidemiology/hanley/galton/notebook/, transcribed by Beverley Shipley in 2001.
+</p>
+### References
+References for the Galton dataset as provided by the DataHist package.
+<p>Galton, F. (1886). Regression Towards Mediocrity in Hereditary Stature Journal of the Anthropological Institute, 15, 246-263
+</p>
+<p>
+Hanley, J. A. (2004). "Transmuting" Women into Men: Galton's Family Data on Human Stature. The American Statistician, 58, 237-243. See: 
+<br/> http://www.medicine.mcgill.ca/epidemiology/hanley/galton/ for source materials.
+</p>
+<p>
+Keen, K. J. (2010). Graphics for Statistics and Data Analysis with R, Boca Raton: CRC Press,
+<br/>http://www.unbc.ca/keen/graphics-for-statistics-and-data-analysis-with-r.
+</p>
+
